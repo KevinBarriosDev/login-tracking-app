@@ -13,7 +13,7 @@ Sistema de autenticación con registro automático en Google Sheets y notificaci
 
 ## 🛠️ Stack Tecnológico
 
-- **Frontend:** Next.js 14 (App Router), React, TypeScript
+- **Frontend:** Next.js 16 (App Router), React, TypeScript
 - **Styling:** TailwindCSS, Shadcn/ui
 - **Database:** Supabase (PostgreSQL)
 - **APIs:** Google Sheets API
@@ -34,19 +34,19 @@ Sistema de autenticación con registro automático en Google Sheets y notificaci
 
 ### Login Page
 
-![Login Page](./screenshots/login.png)
+![Login Page](/public/img/LogIn%20login-tracking-app.png)
 
 ### Dashboard
 
-![Dashboard](./screenshots/dashboard.png)
+![Dashboard](/public/img/Dashboard%20login-tracking-app.png)
 
 ### Google Sheets Tracking
 
-![Google Sheets](./screenshots/sheets.png)
+![Google Sheets](/public/img/Google%20Sheets%20login-tracking-app.png)
 
 ### Email Notification
 
-![Email](./screenshots/email.png)
+![Email](/public/img/Gmail%20login-tracking-app.png)
 
 ## 🏗️ Arquitectura
 
@@ -93,7 +93,7 @@ Sistema de autenticación con registro automático en Google Sheets y notificaci
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/login-tracking-app.git
+git clone https://github.com/KevinBarriosDev/login-tracking-app
 cd login-tracking-app
 ```
 
@@ -199,38 +199,41 @@ vercel
 
 ```
 login-tracking-app/
-├── src/
-│   ├── app/
-│   │   ├── (auth)/
-│   │   │   └── login/
-│   │   │       └── page.tsx          # Página de login
-│   │   ├── dashboard/
-│   │   │   └── page.tsx              # Dashboard post-login
-│   │   ├── api/
-│   │   │   ├── auth/
-│   │   │   │   └── [...better-auth]/
-│   │   │   │       └── route.ts      # API de autenticación
-│   │   │   └── track-login/
-│   │   │       └── route.ts          # API de tracking
-│   │   ├── layout.tsx                # Layout principal
-│   │   └── page.tsx                  # Home (redirect)
-│   ├── components/
-│   │   ├── ui/                       # Componentes Shadcn/ui
-│   │   └── auth/
-│   │       └── LoginForm.tsx         # Formulario de login
-│   ├── lib/
-│   │   ├── auth.ts                   # Config Better Auth
-│   │   ├── supabase.ts               # Cliente Supabase
-│   │   ├── google-sheets.ts          # Cliente Google Sheets
-│   │   ├── make.ts                   # Cliente Make
-│   │   └── utils.ts                  # Utilidades
-│   └── types/
-│       └── index.ts                  # TypeScript types
-├── .env.local                        # Variables de entorno
-├── .env.example                      # Template de env vars
-├── next.config.js                    # Config Next.js
-├── tailwind.config.ts                # Config Tailwind
-├── tsconfig.json                     # Config TypeScript
+├── app/
+│   ├── (auth)/
+│   │   └── login/
+│   │       └── page.tsx          # Página de login
+│   ├── dashboard/
+│   │   └── page.tsx              # Dashboard post-login
+│   ├── api/
+│   │   ├── auth/
+│   │   │   └── [...better-auth]/
+│   │   │       └── route.ts      # API de autenticación
+│   │   └── track-login/
+│   │       └── route.ts          # API de tracking
+│   ├── layout.tsx                # Layout principal
+│   ├── page.tsx                  # Home (redirect)
+│   └── globals.css               # Estilos globales
+├── components/
+│   ├── ui/                       # Componentes Shadcn/ui
+│   └── auth/
+│       └── LoginForm.tsx         # Formulario de login
+├── lib/
+│   ├── auth.ts                   # Config Better Auth
+│   ├── supabase.ts               # Cliente Supabase
+│   ├── google-sheets.ts          # Cliente Google Sheets
+│   ├── make.ts                   # Cliente Make
+│   └── utils.ts                  # Utilidades
+├── hooks/
+│   └── use-toast.ts              # Hook de toast
+├── public/
+│   └── img/                      # Imágenes
+├── .env.local                    # Variables de entorno
+├── .env.example                  # Template de env vars
+├── next.config.mjs               # Config Next.js
+├── tailwind.config.ts            # Config Tailwind
+├── tsconfig.json                 # Config TypeScript
+├── components.json               # Config Shadcn/ui
 └── package.json
 ```
 
@@ -331,5 +334,5 @@ Este proyecto fue creado como prueba técnica y es de uso libre.
 
 **Kevin Barrios**
 
-- GitHub: [@tu-usuario](https://github.com/tu-usuario)
-- LinkedIn: [tu-perfil](https://linkedin.com/in/tu-perfil)
+- GitHub: [@KevinBarriosDev](https://github.com/KevinBarriosDev)
+- LinkedIn: [Kevin Barrios](https://www.linkedin.com/in/kevin-barrios-developer)
