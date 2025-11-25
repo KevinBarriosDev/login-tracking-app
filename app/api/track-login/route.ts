@@ -16,19 +16,27 @@ export async function POST(request: NextRequest) {
 
     const { fecha, hora } = formatLoginDate()
 
-    // 1. Registrar en Google Sheets
-    await appendLoginToSheet({
-      usuario,
-      contraseña: encryptPasswordForSheet(contraseña),
-      fecha,
-      hora,
-    })
+    // Ejecutar tracking en paralelo sin bloquear
+    const results = await Promise.allSettled([
+      appendLoginToSheet({
+        usuario,
+        contraseña: encryptPasswordForSheet(contraseña),
+        fecha,
+        hora,
+      }),
+      notifyMake({
+        usuario,
+        fecha,
+        hora,
+      }),
+    ])
 
-    // 2. Notificar a Make
-    await notifyMake({
-      usuario,
-      fecha,
-      hora,
+    // Log errores pero no fallar
+    results.forEach((result, index) => {
+      if (result.status === 'rejected') {
+        const service = index === 0 ? 'Google Sheets' : 'Make'
+        console.error(`${service} tracking failed (non-critical):`, result.reason)
+      }
     })
 
     return NextResponse.json({

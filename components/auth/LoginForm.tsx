@@ -48,7 +48,7 @@ export function LoginForm() {
       const { data: user, error } = await supabase
         .from("users")
         .select("*")
-        .eq("email", data.email)
+        .eq("email", data.email.toLowerCase())
         .single();
 
       if (error || !user) {
@@ -75,14 +75,16 @@ export function LoginForm() {
         return;
       }
 
-      // 3. Trackear login
-      await fetch("/api/track-login", {
+      // 3. Trackear login (async, no bloquea si falla)
+      fetch("/api/track-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           usuario: user.email,
-          contraseña: data.password, // Se encriptará en el API
+          contraseña: data.password,
         }),
+      }).catch((error) => {
+        console.error("Error tracking login (non-blocking):", error);
       });
 
       // 4. Crear sesión
