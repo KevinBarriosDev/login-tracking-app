@@ -65,7 +65,7 @@ Sistema de autenticación con registro automático en Google Sheets y notificaci
        ▼                 ▼
 ┌─────────────┐   ┌──────────────┐
 │  Supabase   │   │ Google       │
-│  (Auth DB)  │   │ Sheets API   │
+│  (User DB)  │   │ Sheets API   │
 └─────────────┘   └──────────────┘
                          │
                          ▼
@@ -79,6 +79,8 @@ Sistema de autenticación con registro automático en Google Sheets y notificaci
                   │  Email       │
                   └──────────────┘
 ```
+
+**Nota:** Better Auth está configurado y disponible en `/api/auth/[...better-auth]` para funcionalidades extendidas.
 
 ## 📋 Requisitos Previos
 
