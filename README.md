@@ -187,6 +187,7 @@ Abrir [http://localhost:3000](http://localhost:3000)
 1. Push del código a GitHub
 2. Conectar repositorio en [Vercel](https://vercel.com)
 3. Configurar variables de entorno en Vercel Dashboard
+   - **IMPORTANTE:** Cambiar `BETTER_AUTH_URL` de `http://localhost:3000` a `https://login-tracking-app.vercel.app` (o tu URL de Vercel)
 4. Deploy automático
 
 ```bash

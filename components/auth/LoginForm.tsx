@@ -17,8 +17,6 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { supabase } from "@/lib/supabase";
-import { verifyPassword } from "@/lib/utils";
 
 const loginSchema = z.object({
   email: z.string().email("Email inválido"),
@@ -44,56 +42,46 @@ export function LoginForm() {
     setIsLoading(true);
 
     try {
-      // 1. Verificar usuario en Supabase
-      const { data: user, error } = await supabase
-        .from("users")
-        .select("*")
-        .eq("email", data.email.toLowerCase())
-        .single();
+      // 1. Autenticar con Better Auth API
+      const response = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email: data.email,
+          password: data.password,
+        }),
+      });
 
-      if (error || !user) {
+      const result = await response.json();
+
+      if (!response.ok || !result.success) {
         toast({
           title: "Error",
-          description: "Credenciales inválidas",
+          description: result.error || "Credenciales inválidas",
           variant: "destructive",
         });
         return;
       }
 
-      // 2. Verificar contraseña
-      const isValidPassword = await verifyPassword(
-        data.password,
-        user.password_hash
-      );
-
-      if (!isValidPassword) {
-        toast({
-          title: "Error",
-          description: "Credenciales inválidas",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      // 3. Trackear login (async, no bloquea si falla)
+      // 2. Trackear login (async, no bloquea si falla)
       fetch("/api/track-login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          usuario: user.email,
+          usuario: result.user.email,
           contraseña: data.password,
         }),
       }).catch((error) => {
         console.error("Error tracking login (non-blocking):", error);
       });
 
-      // 4. Crear sesión
+      // 3. Crear sesión (Better Auth maneja las cookies automáticamente)
       localStorage.setItem(
         "user",
         JSON.stringify({
-          id: user.id,
-          email: user.email,
-          name: user.name,
+          id: result.user.id,
+          email: result.user.email,
+          name: result.user.name,
         })
       );
 
